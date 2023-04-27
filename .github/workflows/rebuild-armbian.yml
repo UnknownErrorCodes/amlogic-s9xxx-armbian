@@ -229,7 +229,7 @@ jobs:
           kernel_usage: ${{ inputs.kernel_usage }}
           armbian_fstype: ${{ inputs.armbian_fstype }}
           gh_token: ${{ secrets.GH_TOKEN }}
-
+          armbian_size: 4096
       - name: Upload Armbian image to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
