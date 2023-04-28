@@ -91,7 +91,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: UnknownErrorCodes/amlogic-s9xxx-armbian@main
+        uses: UnknownErrorCodes/amlogic-s9xxx-armbian@test-desktop
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
