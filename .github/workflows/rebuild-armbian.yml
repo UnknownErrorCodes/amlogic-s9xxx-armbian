@@ -128,6 +128,7 @@ on:
           - 5.10.1
           - 5.15.1
           - 6.1.1
+          - 6.1.14
       auto_kernel:
         description: "Auto use the latest kernel."
         required: false
@@ -140,6 +141,7 @@ on:
         type: choice
         options:
           - ophub/kernel
+          - UnknownErrorCodes/amlogic-s9xxx-armbian
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
@@ -221,7 +223,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Rebuild Armbian
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: UnknownErrorCodes/amlogic-s9xxx-armbian@main
         if: ${{ env.ARMBIAN_URL }} != '' && !cancelled()
         with:
           build_target: armbian
