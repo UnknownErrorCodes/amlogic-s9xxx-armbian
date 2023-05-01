@@ -80,6 +80,8 @@ firmware_repo="${firmware_repo//tree\/main/trunk}"
 
 # Set the kernel download repository from github.com
 kernel_repo="https://github.com/ophub/kernel"
+# Set the kernel download url
+kernel_url=""
 # Set the tags(kernel_xxx) of the default kernel that can be replaced via the [ -u ] parameter
 default_tags="stable"
 # Set the tags(kernel_xxx) of the specified kernel, such as 5.15.y, 6.1.y, etc.
@@ -206,6 +208,12 @@ init_var() {
                 shift
             else
                 error_msg "Invalid -k parameter [ ${2} ]!"
+            fi
+            ;;
+        -m | --kernelurl)
+            if [[ -n "${2}" ]]; then
+                kernel_url="${2}"
+                shift
             fi
             ;;
         -a | --Autokernel)
@@ -468,6 +476,9 @@ download_kernel() {
             for kernel_var in ${down_kernel_list[*]}; do
                 if [[ ! -d "${kernel_path}/${kd}/${kernel_var}" ]]; then
                     kernel_down_from="https://github.com/${kernel_repo}/releases/download/kernel_${kd}/${kernel_var}.tar.gz"
+                    if [[ -n "${kernel_url}" ]]; then
+                        kernel_down_from=kernel_url
+                    fi
                     echo -e "${INFO} (${x}.${i}) [ ${k} - ${kernel_var} ] Kernel download from [ ${kernel_down_from} ]"
 
                     mkdir -p ${kernel_path}/${kd}
