@@ -168,6 +168,14 @@ on:
         description: "Set armbian rootfs size."
         required: false
         default: "2560"
+      kernel_sign:
+        description: "Set the kernel custom signature"
+        required: false
+        default: "-ophub"
+        type: choice
+        options:
+          - -ophub
+          - -meson64
 
 env:
   TZ: America/New_York
@@ -239,6 +247,7 @@ jobs:
           kernel_url: ${{ inputs.kernel_url }}
           kernel_repo: ${{ inputs.kernel_repo }}
           kernel_usage: ${{ inputs.kernel_usage }}
+          kernel_sign: ${{ inputs.kernel_sign }}
           armbian_fstype: ${{ inputs.armbian_fstype }}
           gh_token: ${{ secrets.GH_TOKEN }}
           armbian_size: ${{ inputs.armbian_size }}
